@@ -51,7 +51,16 @@ fun AppNavigation(
             )
         }
         composable<Routes.Dashboard> {
-            DashboardScreenRoot()
+            DashboardScreenRoot(
+                account = {
+                    navController.navigate(Routes.Account) {
+                        launchSingleTop = true
+                    }
+                }
+            )
+        }
+        composable<Routes.Account> {
+
         }
     }
 }
