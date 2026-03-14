@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.ralphmarondev.dragonfly.features.auth.presentation.account.AccountScreenRoot
 import com.ralphmarondev.dragonfly.features.auth.presentation.login.LoginScreenRoot
 import com.ralphmarondev.dragonfly.features.auth.presentation.register.RegisterScreenRoot
 import com.ralphmarondev.dragonfly.features.dashboard.presentation.DashboardScreenRoot
@@ -60,7 +61,11 @@ fun AppNavigation(
             )
         }
         composable<Routes.Account> {
-
+            AccountScreenRoot(
+                navigateBack = {
+                    navController.navigateUp()
+                }
+            )
         }
     }
 }
