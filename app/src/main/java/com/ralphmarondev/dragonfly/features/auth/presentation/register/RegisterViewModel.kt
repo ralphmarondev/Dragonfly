@@ -21,6 +21,10 @@ class RegisterViewModel(
                 _state.update { it.copy(displayName = action.displayName) }
             }
 
+            is RegisterAction.VehicleIdChange -> {
+                _state.update { it.copy(vehicleId = action.vehicleId) }
+            }
+
             is RegisterAction.EmailChange -> {
                 _state.update { it.copy(email = action.email) }
             }
@@ -40,16 +44,19 @@ class RegisterViewModel(
             RegisterAction.Register -> {
                 register(
                     displayName = _state.value.displayName.trim(),
+                    vehicleId = _state.value.vehicleId.trim(),
                     email = _state.value.email.trim(),
                     password = _state.value.password.trim(),
                     confirmPassword = _state.value.confirmPassword.trim()
                 )
             }
+
         }
     }
 
     private fun register(
         displayName: String,
+        vehicleId: String,
         email: String,
         password: String,
         confirmPassword: String
@@ -69,6 +76,15 @@ class RegisterViewModel(
                     _state.update {
                         it.copy(
                             errorMessage = "Display name cannot be blank.",
+                            showErrorMessage = true
+                        )
+                    }
+                    return@launch
+                }
+                if (displayName.isBlank()) {
+                    _state.update {
+                        it.copy(
+                            errorMessage = "Vehicle ID cannot be blank.",
                             showErrorMessage = true
                         )
                     }
@@ -102,7 +118,14 @@ class RegisterViewModel(
                     return@launch
                 }
 
-                when (repository.register(email, password)) {
+                val registerResult = repository.register(
+                    displayName = displayName,
+                    vehicleId = vehicleId,
+                    email = email,
+                    password = password
+                )
+
+                when (registerResult) {
                     true -> {
                         _state.update { it.copy(isRegistered = true) }
                     }

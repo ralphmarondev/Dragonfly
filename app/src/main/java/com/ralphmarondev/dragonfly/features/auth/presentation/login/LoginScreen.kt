@@ -33,10 +33,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.ralphmarondev.dragonfly.core.presentation.components.NormalTextField
 import com.ralphmarondev.dragonfly.core.presentation.components.PasswordTextField
@@ -130,24 +128,6 @@ private fun LoginScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = "Welcome to Dragonfly Community",
-                    style = MaterialTheme.typography.titleLarge.copy(
-                        color = MaterialTheme.colorScheme.primary,
-                        textAlign = TextAlign.Center
-                    )
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = "Sign in to your account to continue.",
-                    style = MaterialTheme.typography.titleMedium.copy(
-                        color = MaterialTheme.colorScheme.secondary,
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Normal
-                    )
-                )
-
                 Spacer(modifier = Modifier.height(16.dp))
 
                 NormalTextField(

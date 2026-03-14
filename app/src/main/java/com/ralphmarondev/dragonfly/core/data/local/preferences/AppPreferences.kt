@@ -30,6 +30,7 @@ class AppPreferences(
         val DARK_MODE = booleanPreferencesKey("dark_mode")
         val AUTHENTICATED = booleanPreferencesKey("is_authenticated")
         val EMAIL = stringPreferencesKey("email")
+        val VEHICLE_ID = stringPreferencesKey("vehicle_id")
     }
 
     suspend fun setDarkMode(value: Boolean) {
@@ -54,5 +55,13 @@ class AppPreferences(
 
     fun getEmail(): Flow<String> {
         return dataStore.data.map { it[EMAIL] ?: "" }
+    }
+
+    suspend fun setVehicleId(value: String) {
+        dataStore.edit { it[VEHICLE_ID] = value }
+    }
+
+    fun getVehicleId(): Flow<String> {
+        return dataStore.data.map { it[VEHICLE_ID] ?: "" }
     }
 }

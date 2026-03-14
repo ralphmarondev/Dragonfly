@@ -4,6 +4,7 @@ data class RegisterState(
     val errorMessage: String? = null,
     val showErrorMessage: Boolean = false,
     val displayName: String = "",
+    val vehicleId: String = "",
     val email: String = "",
     val password: String = "",
     val confirmPassword: String = "",
