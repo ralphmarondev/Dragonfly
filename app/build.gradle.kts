@@ -16,7 +16,7 @@ android {
         minSdk = 28
         targetSdk = 36
         versionCode = 1
-        versionName = "Dragonfly 26.03"
+        versionName = "26.03 Dragonfly"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
