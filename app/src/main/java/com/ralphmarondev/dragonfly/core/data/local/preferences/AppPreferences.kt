@@ -32,6 +32,7 @@ class AppPreferences(
         val EMAIL = stringPreferencesKey("email")
         val PASSWORD = stringPreferencesKey("password")
         val VEHICLE_ID = stringPreferencesKey("vehicle_id")
+        val LOCATION = stringPreferencesKey("location")
     }
 
     suspend fun setDarkMode(value: Boolean) {
@@ -72,5 +73,19 @@ class AppPreferences(
 
     fun getVehicleId(): Flow<String> {
         return dataStore.data.map { it[VEHICLE_ID] ?: "" }
+    }
+
+    suspend fun setLocation(lat: Double, lng: Double) {
+        val value = "$lat,$lng"
+        dataStore.edit { it[LOCATION] = value }
+    }
+
+    fun getLocation(): Flow<Pair<Double, Double>?> {
+        return dataStore.data.map { prefs ->
+            prefs[LOCATION]?.let {
+                val parts = it.split(",")
+                Pair(parts[0].toDouble(), parts[1].toDouble())
+            }
+        }
     }
 }
