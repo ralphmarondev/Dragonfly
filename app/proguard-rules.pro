@@ -19,3 +19,18 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Firebase Auth / Firestore / Storage
+-keep class com.google.firebase.** { *; }
+-keep class com.google.android.gms.** { *; }
+
+# Kotlin metadata (required for reflection/serialization)
+-keep class kotlin.Metadata { *; }
+
+# Classes used in serialization
+-keepclassmembers class * {
+    @kotlinx.serialization.Serializable <fields>;
+}
+
+# Domain model classes for serialization
+-keep class com.ralphmarondev.dragonfly.core.domain.model.** { *; }
