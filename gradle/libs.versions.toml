@@ -45,13 +45,15 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
 koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
-work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntimeVersion" }
+koin-androidx-workmanager = { module = "io.insert-koin:koin-androidx-workmanager", version.ref = "koin" }
+work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeVersion" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 androidx-credentials = { group = "androidx.credentials", name = "credentials", version.ref = "credentials" }
 androidx-credentials-play-services-auth = { group = "androidx.credentials", name = "credentials-play-services-auth", version.ref = "credentialsPlayServicesAuth" }
 googleid = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version.ref = "googleid" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore-ktx", version = "25.1.4" }
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage-ktx", version = "21.0.2" }
+kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version = "1.8.1" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -63,11 +65,13 @@ google-gms-google-services = { id = "com.google.gms.google-services", version.re
 koin = [
     "koin-core",
     "koin-android",
-    "koin-androidx-compose"
+    "koin-androidx-compose",
+    "koin-androidx-workmanager"
 ]
 
 firebase = [
     "firebase-auth",
     "firebase-firestore",
-    "firebase-storage"
+    "firebase-storage",
+    "kotlinx-coroutines-play-services"
 ]

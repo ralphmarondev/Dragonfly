@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStoreFile
+import com.ralphmarondev.dragonfly.core.domain.model.Location
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -80,11 +81,16 @@ class AppPreferences(
         dataStore.edit { it[LOCATION] = value }
     }
 
-    fun getLocation(): Flow<Pair<Double, Double>?> {
+    fun getLocation(): Flow<Location?> {
         return dataStore.data.map { prefs ->
             prefs[LOCATION]?.let {
                 val parts = it.split(",")
-                Pair(parts[0].toDouble(), parts[1].toDouble())
+                if (parts.size == 2) {
+                    Location(
+                        latitude = parts[0].toDouble(),
+                        longitude = parts[1].toDouble()
+                    )
+                } else null
             }
         }
     }
