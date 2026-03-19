@@ -20,6 +20,9 @@ class MyApp : Application() {
             modules(appModule)
         }
 
-        LocationWorkerScheduler.schedule(this)
+        LocationWorkerScheduler.schedule(
+            context = this@MyApp,
+            demo = false
+        )
     }
 }
