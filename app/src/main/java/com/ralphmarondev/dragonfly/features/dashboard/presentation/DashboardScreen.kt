@@ -136,11 +136,12 @@ private fun ContentList(
     ) {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(16.dp)
+            contentPadding = PaddingValues(8.dp)
         ) {
             items(items = locations) { location ->
                 OutlinedCard(
-                    onClick = { onClick(location.id) }
+                    onClick = { onClick(location.id) },
+                    modifier = Modifier.padding(4.dp)
                 ) {
                     Column(
                         modifier = Modifier
