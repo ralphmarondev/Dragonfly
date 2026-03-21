@@ -27,32 +27,45 @@ class LocationCheckWorker(
             if (vehicleId.isEmpty()) return Result.success()
 
             val savedLocation = prefs.getLocation().first()
-            val snapshot = firestore.collection("vehicles")
+            val snapshot = firestore.collection("locations")
                 .document(vehicleId)
+                .collection("location")
+                .limitToLast(1)
                 .get()
                 .await()
 
-            val lat = snapshot.getDouble("latitude")
-            val lng = snapshot.getDouble("longitude")
+            val doc = snapshot.documents.firstOrNull()
+            val lat = doc?.getDouble("latitude")
+            val lng = doc?.getDouble("longitude")
 
             if (lat != null && lng != null) {
-                val hasChanged = savedLocation == null ||
-                        hasSignificantChange(
-                            savedLocation.latitude,
-                            savedLocation.longitude,
-                            lat,
-                            lng
-                        )
-
-                if (hasChanged) {
+                if (savedLocation == null) {
                     prefs.setLocation(lat, lng)
                     NotificationHelper.sendNotification(
                         context = applicationContext,
                         id = 1001,
-                        title = "Vehicle Moved",
-                        content = "New location: $lat, $lng",
+                        title = "Set Current Location",
+                        content = "Current Location: $lat, $lng",
                         autoCancel = true
                     )
+                } else {
+                    val hasChanged = hasSignificantChange(
+                        savedLocation.latitude,
+                        savedLocation.longitude,
+                        lat,
+                        lng
+                    )
+
+                    if (hasChanged) {
+                        prefs.setLocation(lat, lng)
+                        NotificationHelper.sendNotification(
+                            context = applicationContext,
+                            id = 1001,
+                            title = "Vehicle Moved",
+                            content = "New location: $lat, $lng",
+                            autoCancel = true
+                        )
+                    }
                 }
             }
 
