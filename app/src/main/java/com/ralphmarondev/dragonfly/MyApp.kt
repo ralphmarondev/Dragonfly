@@ -22,7 +22,7 @@ class MyApp : Application() {
 
         LocationWorkerScheduler.schedule(
             context = this@MyApp,
-            demo = false
+            demo = true
         )
     }
 }
