@@ -80,31 +80,37 @@ private fun DashboardScreen(
             )
         }
     ) { innerPadding ->
-        Crossfade(
-            targetState = state.locations.isEmpty()
-        ) { locationState ->
-            when (locationState) {
-                true -> EmptyContent(innerPadding)
-                false -> {
-                    ContentList(
-                        innerPadding = innerPadding,
-                        isRefreshing = state.isRefreshing,
-                        locations = state.locations,
-                        onClick = {},
-                        onRefresh = { action(DashboardAction.Refresh) }
-                    )
+        PullToRefreshBox(
+            isRefreshing = state.isRefreshing,
+            onRefresh = { action(DashboardAction.Refresh) },
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                Crossfade(
+                    targetState = state.locations.isEmpty()
+                ) { locationState ->
+                    when (locationState) {
+                        true -> EmptyContent()
+                        false -> {
+                            ContentList(
+                                locations = state.locations,
+                                onClick = {}
+                            )
+                        }
+                    }
                 }
             }
         }
+
     }
 }
 
 @Composable
-private fun EmptyContent(innerPadding: PaddingValues) {
+private fun EmptyContent() {
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(innerPadding),
+        modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -121,46 +127,35 @@ private fun EmptyContent(innerPadding: PaddingValues) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ContentList(
-    innerPadding: PaddingValues,
-    isRefreshing: Boolean,
     locations: List<Location>,
-    onClick: (Long) -> Unit,
-    onRefresh: () -> Unit
+    onClick: (Long) -> Unit
 ) {
-    PullToRefreshBox(
-        isRefreshing = isRefreshing,
-        onRefresh = onRefresh,
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(innerPadding)
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(8.dp)
     ) {
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(8.dp)
-        ) {
-            items(items = locations) { location ->
-                OutlinedCard(
-                    onClick = { onClick(location.id) },
-                    modifier = Modifier.padding(4.dp)
+        items(items = locations) { location ->
+            OutlinedCard(
+                onClick = { onClick(location.id) },
+                modifier = Modifier.padding(4.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
                 ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp)
-                    ) {
-                        Text(
-                            text = "Longitude: ${location.longitude}",
-                            style = MaterialTheme.typography.titleMedium.copy(
-                                color = MaterialTheme.colorScheme.secondary
-                            )
+                    Text(
+                        text = "Longitude: ${location.longitude}",
+                        style = MaterialTheme.typography.titleMedium.copy(
+                            color = MaterialTheme.colorScheme.secondary
                         )
-                        Text(
-                            text = "Latitude: ${location.latitude}",
-                            style = MaterialTheme.typography.titleMedium.copy(
-                                color = MaterialTheme.colorScheme.secondary
-                            )
+                    )
+                    Text(
+                        text = "Latitude: ${location.latitude}",
+                        style = MaterialTheme.typography.titleMedium.copy(
+                            color = MaterialTheme.colorScheme.secondary
                         )
-                    }
+                    )
                 }
             }
         }
