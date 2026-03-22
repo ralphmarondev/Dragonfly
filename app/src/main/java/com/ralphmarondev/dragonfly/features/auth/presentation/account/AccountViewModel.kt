@@ -1,5 +1,6 @@
 package com.ralphmarondev.dragonfly.features.auth.presentation.account
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ralphmarondev.dragonfly.core.domain.model.Result
@@ -39,6 +40,7 @@ class AccountViewModel(
     private fun loadInformation(isRefreshing: Boolean = false) {
         viewModelScope.launch {
             try {
+                Log.d("Account", "Load Information...")
                 _state.update {
                     it.copy(
                         isLoading = true, isRefreshing = isRefreshing,
@@ -49,10 +51,12 @@ class AccountViewModel(
 
                 when (val result = repository.getAccountInformation()) {
                     is Result.Success -> {
+                        Log.d("Account", "Success. Email: ${result.data.email}")
                         _state.update { it.copy(user = result.data) }
                     }
 
                     is Result.Error -> {
+                        Log.e("Account", "Error from result: ${result.message}")
                         _state.update {
                             it.copy(errorMessage = result.message, showErrorMessage = true)
                         }
@@ -60,12 +64,14 @@ class AccountViewModel(
                 }
 
             } catch (e: Exception) {
+                Log.e("Account", "Load information error: ${e.message}")
                 _state.update {
                     it.copy(errorMessage = e.message, showErrorMessage = true)
                 }
             } finally {
                 _state.update { it.copy(isLoading = false, isRefreshing = false) }
             }
+            Log.d("Account", "Load Information done...")
         }
     }
 }
