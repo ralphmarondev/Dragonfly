@@ -118,15 +118,15 @@ private fun DashboardScreen(
                     // NOTE: THIS SHOULD BE DONE ON THE BACKGROUND WHEN THE LOCATION OF THE
                     // VEHICLE IS CHANGED.
                     if (permissionGranted) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                            launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
-                        }
-                    } else {
                         NotificationHelper.sendNotification(
                             context = context,
                             title = "Dragonfly Notification",
                             content = "Your vehicle is moved. Lolz :)"
                         )
+                    } else {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                        }
                     }
                 }
             ) {
