@@ -124,7 +124,6 @@ private fun DashboardScreen(
                     } else {
                         NotificationHelper.sendNotification(
                             context = context,
-                            id = 1,
                             title = "Dragonfly Notification",
                             content = "Your vehicle is moved. Lolz :)"
                         )

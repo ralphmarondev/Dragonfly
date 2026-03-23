@@ -43,7 +43,6 @@ class LocationCheckWorker(
                     prefs.setLocation(lat, lng)
                     NotificationHelper.sendNotification(
                         context = applicationContext,
-                        id = 1001,
                         title = "Set Current Location",
                         content = "Current Location: $lat, $lng",
                         autoCancel = true
@@ -60,7 +59,6 @@ class LocationCheckWorker(
                         prefs.setLocation(lat, lng)
                         NotificationHelper.sendNotification(
                             context = applicationContext,
-                            id = 1001,
                             title = "Vehicle Moved",
                             content = "New location: $lat, $lng",
                             autoCancel = true

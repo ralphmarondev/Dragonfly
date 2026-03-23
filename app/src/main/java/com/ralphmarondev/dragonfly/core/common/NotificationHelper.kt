@@ -17,6 +17,7 @@ import com.ralphmarondev.dragonfly.R
 object NotificationHelper {
 
     private const val CHANNEL_ID = "dragonfly_notification_channel"
+    private const val NOTIFICATION_ID = 2003
 
     private fun hasNotificationPermission(context: Context): Boolean {
         return !(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
@@ -44,9 +45,9 @@ object NotificationHelper {
 
     fun sendNotification(
         context: Context,
-        id: Int,
         title: String,
         content: String,
+        id: Int = NOTIFICATION_ID,
         iconRes: Int = R.drawable.ic_launcher_foreground,
         style: NotificationCompat.Style? = null,
         pendingIntent: PendingIntent? = null,
