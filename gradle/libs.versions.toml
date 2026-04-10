@@ -53,6 +53,7 @@ androidx-credentials-play-services-auth = { group = "androidx.credentials", name
 googleid = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version.ref = "googleid" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore-ktx", version = "25.1.4" }
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage-ktx", version = "21.0.2" }
+firebase-database = { group = "com.google.firebase", name = "firebase-database-ktx", version = "21.0.0" }
 kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version = "1.8.1" }
 
 [plugins]
@@ -73,5 +74,6 @@ firebase = [
     "firebase-auth",
     "firebase-firestore",
     "firebase-storage",
+    "firebase-database",
     "kotlinx-coroutines-play-services"
 ]

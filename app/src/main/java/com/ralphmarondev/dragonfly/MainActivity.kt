@@ -10,6 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.core.app.NotificationCompat
 import com.ralphmarondev.dragonfly.core.common.NotificationHelper
+import org.koin.compose.viewmodel.koinViewModel
 import java.util.Calendar
 
 class MainActivity : ComponentActivity() {
@@ -18,6 +19,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         sendGreetings()
         setContent {
+            val viewModel: MainViewModel = koinViewModel()
             Scaffold { innerPadding ->
                 WebViewScreen(
                     modifier = Modifier
