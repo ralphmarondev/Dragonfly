@@ -51,8 +51,8 @@ if __name__ == "__main__":
     if not token:
         exit()
 
-    lat = 18.5995
-    lng = 124.9842
+    lat = 50.5995
+    lng = 504.9842
 
     send_location(token, lat, lng)
 
