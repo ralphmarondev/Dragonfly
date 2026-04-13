@@ -1,6 +1,7 @@
 package com.ralphmarondev.dragonfly.core.di
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ralphmarondev.dragonfly.core.data.local.preferences.AppPreferences
 import com.ralphmarondev.dragonfly.core.worker.LocationCheckWorker
@@ -12,5 +13,6 @@ val coreModule = module {
     single { AppPreferences(context = androidContext().applicationContext) }
     single { FirebaseAuth.getInstance() }
     single { FirebaseFirestore.getInstance() }
-    worker { LocationCheckWorker(get(), get(), get(), get()) }
+    single { FirebaseDatabase.getInstance() }
+    worker { LocationCheckWorker(get(), get(), get(), get(), get()) }
 }

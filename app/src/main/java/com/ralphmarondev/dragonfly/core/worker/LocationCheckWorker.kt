@@ -4,6 +4,7 @@ import android.content.Context
 import android.location.Location
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ralphmarondev.dragonfly.core.common.NotificationHelper
 import com.ralphmarondev.dragonfly.core.data.local.preferences.AppPreferences
@@ -14,7 +15,8 @@ class LocationCheckWorker(
     context: Context,
     params: WorkerParameters,
     private val prefs: AppPreferences,
-    private val firestore: FirebaseFirestore
+    private val firestore: FirebaseFirestore,
+    private val database: FirebaseDatabase
 ) : CoroutineWorker(context, params) {
 
     companion object {
@@ -25,25 +27,23 @@ class LocationCheckWorker(
         return try {
             val vehicleId = prefs.getVehicleId().first()
             if (vehicleId.isEmpty()) return Result.success()
+            val db = database.reference
 
             val savedLocation = prefs.getLocation().first()
-            val snapshot = firestore.collection("locations")
-                .document(vehicleId)
-                .collection("location")
-                .limitToLast(1)
+            val snapshot = db.child("HELLO123")
                 .get()
                 .await()
 
-            val doc = snapshot.documents.firstOrNull()
-            val lat = doc?.getDouble("latitude")
-            val lng = doc?.getDouble("longitude")
+            val latestEntry = snapshot.children.maxByOrNull { it?.key?.toLongOrNull() ?: 0L }
+            val lat = latestEntry?.child("latitude")?.getValue(Double::class.java)
+            val lng = latestEntry?.child("longitude")?.getValue(Double::class.java)
 
             if (lat != null && lng != null) {
                 if (savedLocation == null) {
                     prefs.setLocation(lat, lng)
                     NotificationHelper.sendNotification(
                         context = applicationContext,
-                        title = "Set Current Location",
+                        title = "Vehicle Moved",
                         content = "Current Location: $lat, $lng",
                         autoCancel = true
                     )

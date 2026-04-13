@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(innerPadding),
-                    url = "https://ralphmarondev.github.io/"
+                    url = "https://mgt.ets-dev.com/public/dashboard"
                 )
             }
         }
