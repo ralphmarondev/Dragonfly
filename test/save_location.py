@@ -1,10 +1,14 @@
 import time
 import requests
 
-BASE_URL = "https://dragonfly-2026-default-rtdb.firebaseio.com"
+# Dragonfly
+# BASE_URL = "https://dragonfly-2026-default-rtdb.firebaseio.com"
+BASE_URL = "https://mototrack-ca1f6-default-rtdb.firebaseio.com"
 PLATE_NUMBER = "HELLO123"
 
-API_KEY = "AIzaSyAQS99jWftauGrs_-alSed_qGK6jP7IoVI"
+# Dragonfly
+# API_KEY = "AIzaSyAQS99jWftauGrs_-alSed_qGK6jP7IoVI"
+API_KEY = "AIzaSyBpJ5-gPVzdSaljPZRikjoS2qHiEWkkq0U"
 EMAIL = "admin@gmail.com"
 PASSWORD = "adminnimda"
 
